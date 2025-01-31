@@ -1,6 +1,11 @@
 jobs:
+  on:
+    push:
+      branches:
+      - '*'
   fetch_secrets:
     runs-on: DC01
+    
     permissions:
       id-token: write
       contents: read
