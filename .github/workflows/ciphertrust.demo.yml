@@ -1,6 +1,6 @@
 jobs:
   fetch_secrets:
-    runs-on: ubuntu-latest
+    runs-on: DC01
     permissions:
       id-token: write
       contents: read
