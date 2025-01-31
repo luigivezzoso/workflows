@@ -1,37 +1,18 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
 jobs:
-  on:
-    push:
-      branches:
-      - '*'
-  fetch_secrets:
+  Explore-GitHub-Actions:
     runs-on: self-hosted
-    
-    permissions:
-      id-token: write
-      contents: read
-
     steps:
-      - name: Fetch static secrets from Akeyless
-        uses: akeyless-community/akeyless-github-action@v1.0.1
-        id: fetch-secrets
-        with:
-          access-id: ${{ vars.AKEYLESS_ACCESS_ID }}
-          access-type: jwt
-          api-url: https://192.168.72.29/akeyless-api/v2/
-          static-secrets: |
-            - name: "/static/secret-001"
-              output-name: "my_first_secret"
-              key: "imp"
-
-      - name: Use Akeyless secret
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
         run: |
-            echo "Step Outputs"
-            echo "my_first_secret: ${{ steps.fetch-secrets.outputs.my_first_secret }}" >> secrets.txt
-            t
-            
-            echo "Environment Variables"
-            echo "my_first_secret: ${{ env.my_first_secret }}" >> secrets.txt
-          
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
