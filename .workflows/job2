@@ -1,0 +1,29 @@
+jobs:
+  fetch_secrets:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Fetch static secrets from Akeyless
+        uses: akeyless-community/akeyless-github-action@v1.0.1
+        id: fetch-secrets
+        with:
+          access-id: ${{ vars.AKEYLESS_ACCESS_ID }}
+          access-type: jwt
+          api-url: https://192.168.72.29/akeyless-api/v2/
+          static-secrets: |
+            - name: "/static/secret-001"
+              output-name: "my_first_secret"
+              key: "imp"
+
+      - name: Use Akeyless secret
+        run: |
+            echo "Step Outputs"
+            echo "my_first_secret: ${{ steps.fetch-secrets.outputs.my_first_secret }}" >> secrets.txt
+            t
+            
+            echo "Environment Variables"
+            echo "my_first_secret: ${{ env.my_first_secret }}" >> secrets.txt
+          
