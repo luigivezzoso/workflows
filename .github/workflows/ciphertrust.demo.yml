@@ -4,7 +4,7 @@ jobs:
       branches:
       - '*'
   fetch_secrets:
-    runs-on: DC01
+    runs-on: self-hosted
     
     permissions:
       id-token: write
